@@ -3,6 +3,8 @@
 Craft CMS is an excellent content management tool, but its configuration and setup can be a bit troublesome for those not familiar with PHP.
 It's the main reason `craftman` arise, to help speed set up and start a new Craft CMS installation smoothly.
 
+This is a fork of the original repo at gabrielmoreira/craftman, altered to work with the Craft 3 Beta. 
+
 ## Installation
 
 First you'll need to make sure your system has git, docker and docker-compose.
@@ -13,11 +15,11 @@ Note: `craftman` does not support Windows.
 
 To install or update craftman, you can use cURL:
 
-    curl -o- https://raw.githubusercontent.com/gabrielmoreira/craftman/master/craftman_install | sh
+    curl -o- https://raw.githubusercontent.com/HatchWD/craftman/master/craftman_install | sh
 
 or Wget:
 
-    wget -qO- https://raw.githubusercontent.com/gabrielmoreira/craftman/master/craftman_install | sh
+    wget -qO- https://raw.githubusercontent.com/HatchWD/craftman/master/craftman_install | sh
 
 <sub>The script clones the craftman repository to `~/.craftman/bin` and adds the source line to your profile (`~/.bash_profile`, `~/.zshrc` or `~/.profile`).</sub>
 

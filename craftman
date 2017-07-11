@@ -107,9 +107,9 @@ SETVAR
     - CRAFT_DEVMODE=true
 SETVAR
 )
-  CM_CRAFT_DOWNLOAD_URL="https://craftcms.com/latest.tar.gz?accept_license=yes"
+  CM_CRAFT_DOWNLOAD_URL="https://github.com/craftcms/cms/archive/3.0.0-beta.21.tar.gz"
   CM_CRAFT_FILENAME="craft-$(date "+%Y-%m").tar.gz"
-  CM_APP_DIR="site"
+  CM_APP_DIR="site/craft"
   CM_BACKUPS_DIR="backups"
   CM_SCRIPTS_DIR="scripts"
   CM_DOCKER_COMPOSE="docker-compose.yml"
@@ -199,8 +199,8 @@ _cm_config()
   CM_DOCKER_COMPOSE_PATH="$CM_PROJECT_PATH/$CM_DOCKER_COMPOSE"
   CM_INSTALLER_PATH="$CM_SCRIPTS_PATH/$CM_INSTALLER_DIR"
   CM_INSTALL_DEPS_PATH="$CM_INSTALLER_PATH/$CM_INSTALL_DEPENDENCIES"
-  CM_CRAFT_DB_CONFIG_PATH="$CM_APP_PATH/craft/config/db.php"
-  CM_CRAFT_GENERAL_CONFIG_PATH="$CM_APP_PATH/craft/config/general.php"
+  CM_CRAFT_DB_CONFIG_PATH="$CM_APP_PATH/config/db.php"
+  CM_CRAFT_GENERAL_CONFIG_PATH="$CM_APP_PATH/config/general.php"
   CM_PHP_INI_PATH="$CM_SCRIPTS_PATH/override/usr/local/etc/php/php.ini"
   CM_CRAFT_TAR="$CM_CACHE/$CM_CRAFT_FILENAME"
   CM_DOCKER_CRAFT_DEFAULT_VOLUMES=$(cat <<SETVAR
@@ -381,12 +381,12 @@ cm_download()
 _cm_extract_craft()
 {
   cm_log "Extracting Craft CMS tar.gz"
-  mkdir -p "$CM_APP_PATH"
-  if [ "$(ls -A "$CM_APP_PATH")" ] && [ "$CM_FORCE_OVERWRITE" == "0" ]; then
-    cm_abort "+  $CM_APP_PATH is not empty"
-  else
-    cm_log "+  Extracting craft.tar.gz to $CM_APP_PATH"
-    tar -C "$CM_APP_PATH" -xzf "$CM_CRAFT_TAR"
+  # mkdir -p "$CM_APP_PATH"
+  # if [ "$(ls -A "$CM_APP_PATH")" ] && [ "$CM_FORCE_OVERWRITE" == "0" ]; then
+  #   cm_abort "+  $CM_APP_PATH is not empty"
+  # else
+    # cm_log "+  Extracting craft.tar.gz to $CM_APP_PATH"
+    # tar -C "$CM_APP_PATH" -xzf "$CM_CRAFT_TAR"
     rm -f "$CM_CRAFT_DB_CONFIG_PATH"
     rm -f "$CM_CRAFT_GENERAL_CONFIG_PATH"
     if [ -d "$CM_APP_PATH/html" ]; then
@@ -394,12 +394,12 @@ _cm_extract_craft()
     else
       mkdir "$CM_APP_PATH/html"
     fi
-    mv -f "$CM_APP_PATH/public/"* "$CM_APP_PATH/html"
+    mv -f "$CM_APP_PATH/web/"* "$CM_APP_PATH/html"
     if [ ! -f "$CM_APP_PATH/html/.htaccess" ]; then
-      mv "$CM_APP_PATH/html/htaccess" "$CM_APP_PATH/html/.htaccess"
+      mv "$CM_APP_PATH/web/.htaccess" "$CM_APP_PATH/html/.htaccess"
     fi
-    rm -Rf "$CM_APP_PATH/public"
-  fi
+    rm -Rf "$CM_APP_PATH/web"
+  # fi
 }
 
 cm_generate()
@@ -540,7 +540,7 @@ _cm_generate_docker_compose_config()
   if [ "$CM_GENERATE_FILE" != "" ]; then
     if [ "$CM_CRAFT_HTTP_PORT" != "" ]; then
       _CM_DOCKER_CRAFT_PORTS=$(cat <<SETVAR
-  ports:        
+  ports:
     - $CM_CRAFT_HTTP_PORT:80
 SETVAR
 )
@@ -675,10 +675,12 @@ cm_containers_status()
 cm_install()
 {
   mkdir -p "$CM_PROJECT_CRAFTMAN_PATH"
+  composer create-project craftcms/craft "$CM_APP_PATH"  --ignore-platform-reqs
+  #
   touch "$CM_PROJECT_CRAFTMAN_CONFIG"
   cm_debug "Creating craftman project at $CM_PROJECT_CRAFTMAN_CONFIG"
   cm_log "Installing Craft..."
-  cm_download
+  # cm_download
   _cm_extract_craft
   cm_generate
   cm_containers_start
