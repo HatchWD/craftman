@@ -675,7 +675,7 @@ cm_containers_status()
 cm_install()
 {
   mkdir -p "$CM_PROJECT_CRAFTMAN_PATH"
-  composer create-project craftcms/craft "$CM_APP_PATH"  --ignore-platform-reqs
+  composer create-project craftcms/craft "$CM_APP_PATH"  -s beta --ignore-platform-reqs
   #
   touch "$CM_PROJECT_CRAFTMAN_CONFIG"
   cm_debug "Creating craftman project at $CM_PROJECT_CRAFTMAN_CONFIG"
