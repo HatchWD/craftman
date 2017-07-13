@@ -798,7 +798,7 @@ cm_copy_files()
   fi
 }
 
-cm_init()
+cm_craft_init()
 {
   cm_craft_exec "/scripts/composer.phar install"
 }
