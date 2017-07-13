@@ -798,6 +798,11 @@ cm_copy_files()
   fi
 }
 
+cm_init()
+{
+  cm_craft_exec "/scripts/composer.phar install"
+}
+
 cm_open()
 {
   URL="$(cm_docker_compose port craft 80)"
@@ -1071,6 +1076,10 @@ while [ "$1" != "" ]; do
       ;;
     run)
       COMMAND="cm_craft_run"
+      break
+      ;;
+    init)
+      COMMAND="cm_craft_init"
       break
       ;;
     ip)
