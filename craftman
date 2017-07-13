@@ -800,7 +800,7 @@ cm_copy_files()
 
 cm_craft_init()
 {
-  cm_craft_exec "/scripts/composer.phar install"
+  cm_craft_exec "../../scripts/composer.phar install"
 }
 
 cm_open()
