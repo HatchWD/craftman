@@ -491,7 +491,7 @@ _cm_generate_craft_db_config()
  * You can see a list of the default settings in craft/app/etc/config/defaults/db.php
  */
 \$env = getenv("MYSQL_ENV") ?: "MYSQL_PORT";
-\$url = getenv(\$env) ?: getenv("CLEARDB_DATABASE_URL");
+\$url = getenv(\$env) ?: getenv("JAWSDB_URL");
 if (getenv("MYSQL_ENV_MYSQL_ALLOW_EMPTY_PASSWORD") == "yes") {
  \$url = 'mysql://' . (getenv("MYSQL_USER") ?: 'root') . '@' . getenv("MYSQL_PORT_3306_TCP_ADDR") . ':' . getenv("MYSQL_PORT_3306_TCP_PORT") . '/' . getenv("MYSQL_ENV_MYSQL_DATABASE");
 }

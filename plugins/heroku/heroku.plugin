@@ -17,9 +17,15 @@ heroku__config()
   HEROKU__PROCFILE="$CM_PROJECT_PATH/Procfile"
 }
 
+heroku__provision()
+{
+  heroku addons:create jawsdb
+}
+
 heroku__prepare()
 {
   cm_log "Preparing Craft CMS for heroku deploy"
+  heroku__provision
   __heroku_create_procfile
   composer__prepare
   composer__lock

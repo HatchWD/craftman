@@ -11,7 +11,16 @@ composer__usage()
 {
   echo " $CM composer:lock         Regenerate composer.lock for your composer.json file"
   echo " $CM composer:prepare      Generate required files to deploy to Heroku"
+  echo " $CM composer:add [plugin]          Installs plugin with composer require"
+
 }
+
+composer__add()
+{
+  [ "$1" = "" ] && cm_abort "Composer dependency required"
+  cm_craft_exec "cd /scripts/composer && /scripts/composer.phar require $1"
+}
+
 
 composer__config()
 {
