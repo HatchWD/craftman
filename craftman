@@ -116,14 +116,14 @@ SETVAR
   CM_INSTALLER_DIR="install"
   CM_INSTALL_DEPENDENCIES="010_dependencies.sh"
   CM_PECL_INSTALL="imagick"
-  CM_PHP_EXT_INSTALL="iconv mcrypt gd mbstring pdo pdo_mysql zip"
-  CM_PHP_EXT_ENABLE="imagick"
+  CM_PHP_EXT_INSTALL="iconv gd mbstring pdo pdo_mysql zip"
+  CM_PHP_EXT_ENABLE="imagick mcrypt"
   CM_APACHE_MODS_ENABLE="rewrite setenvif deflate headers filter"
   CM_APT_INSTALL=$(cat <<SETVAR
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
-        libpng12-dev \
+        libpng-dev \
         libmagickwand-dev \
         vim curl git wget unzip
 SETVAR
